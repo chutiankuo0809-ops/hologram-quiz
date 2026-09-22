@@ -1,0 +1,3561 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover"
+  >
+
+  <title>Gabor同轴全息｜随堂练习</title>
+
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  >
+
+
+  <!-- Markdown -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+  ></script>
+
+
+  <!-- =====================================================
+       MathJax
+       这里只允许 MathJax 识别 \( \) 和 \[ \]
+
+       不让 MathJax 直接识别 $，
+       避免模型偶发不成对的 $ 导致整段文字被当成公式。
+       ===================================================== -->
+
+  <script>
+
+    window.MathJax = {
+
+      tex: {
+
+        inlineMath: [
+          ['\\(', '\\)']
+        ],
+
+        displayMath: [
+          ['\\[', '\\]']
+        ],
+
+        processEscapes:
+          true
+
+      },
+
+      options: {
+
+        skipHtmlTags: [
+          'script',
+          'noscript',
+          'style',
+          'textarea',
+          'pre',
+          'code'
+        ]
+
+      },
+
+      startup: {
+
+        typeset:
+          false
+
+      }
+
+    };
+
+  </script>
+
+
+  <script
+    id="MathJax-script"
+    defer
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  ></script>
+
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+
+      font-family:
+        system-ui,
+        "Segoe UI",
+        "Microsoft YaHei",
+        "Roboto",
+        sans-serif;
+    }
+
+
+    body {
+
+      background:
+        linear-gradient(
+          145deg,
+          #f5f7fc 0%,
+          #e9eef4 100%
+        );
+
+      min-height:
+        100vh;
+
+      display:
+        flex;
+
+      justify-content:
+        center;
+
+      padding:
+        20px 12px 40px;
+    }
+
+
+    .quiz-wrapper {
+
+      max-width:
+        900px;
+
+      width:
+        100%;
+    }
+
+
+    .header-card {
+
+      background:
+        rgba(
+          255,
+          255,
+          255,
+          0.95
+        );
+
+      backdrop-filter:
+        blur(10px);
+
+      border-radius:
+        32px;
+
+      padding:
+        24px 24px 20px;
+
+      margin-bottom:
+        20px;
+
+      box-shadow:
+        0 12px 28px
+        rgba(
+          0,
+          20,
+          40,
+          0.08
+        );
+
+      border:
+        1px solid
+        rgba(
+          110,
+          140,
+          200,
+          0.15
+        );
+    }
+
+
+    .title-section {
+
+      display:
+        flex;
+
+      align-items:
+        baseline;
+
+      flex-wrap:
+        wrap;
+
+      justify-content:
+        space-between;
+    }
+
+
+    h1 {
+
+      font-size:
+        1.9rem;
+
+      font-weight:
+        650;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0b2b5e,
+          #1a4a7a
+        );
+
+      -webkit-background-clip:
+        text;
+
+      background-clip:
+        text;
+
+      color:
+        transparent;
+    }
+
+
+    .subtitle {
+
+      color:
+        #2c3e50;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        8px;
+
+      font-size:
+        1rem;
+    }
+
+
+    .formula-badge {
+
+      background:
+        #1a3e60;
+
+      color:
+        white;
+
+      padding:
+        8px 18px;
+
+      border-radius:
+        60px;
+
+      font-size:
+        1.3rem;
+
+      font-weight:
+        600;
+
+      display:
+        inline-block;
+
+      margin-top:
+        12px;
+    }
+
+
+    .formula-badge span {
+
+      font-family:
+        "Courier New",
+        monospace;
+    }
+
+
+    .key-info {
+
+      display:
+        flex;
+
+      gap:
+        24px;
+
+      margin-top:
+        14px;
+
+      color:
+        #1e3a5f;
+
+      flex-wrap:
+        wrap;
+    }
+
+
+    .key-info i {
+
+      width:
+        24px;
+
+      color:
+        #2a6f97;
+    }
+
+
+    .score-panel {
+
+      background:
+        #1e3a5f;
+
+      border-radius:
+        48px;
+
+      padding:
+        10px 24px;
+
+      color:
+        white;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        16px;
+
+      margin-top:
+        10px;
+
+      box-shadow:
+        0 6px 14px
+        rgba(
+          0,
+          20,
+          40,
+          0.2
+        );
+    }
+
+
+    .score-text {
+
+      font-size:
+        1.2rem;
+
+      font-weight:
+        500;
+    }
+
+
+    .score-number {
+
+      font-size:
+        2.6rem;
+
+      font-weight:
+        800;
+
+      line-height:
+        1;
+    }
+
+
+    .score-total {
+
+      font-size:
+        1.2rem;
+
+      opacity:
+        0.8;
+    }
+
+
+    .question-card {
+
+      background:
+        #fffffffa;
+
+      border-radius:
+        28px;
+
+      padding:
+        22px 24px;
+
+      margin-bottom:
+        18px;
+
+      box-shadow:
+        0 8px 20px
+        rgba(
+          0,
+          20,
+          40,
+          0.06
+        );
+
+      border:
+        1px solid
+        #dbe4ed;
+
+      transition:
+        all 0.15s;
+    }
+
+
+    .question-header {
+
+      display:
+        flex;
+
+      align-items:
+        flex-start;
+
+      gap:
+        12px;
+
+      margin-bottom:
+        18px;
+    }
+
+
+    .q-num {
+
+      background:
+        #d4e0f0;
+
+      color:
+        #0b2b5e;
+
+      font-weight:
+        700;
+
+      width:
+        36px;
+
+      height:
+        36px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      border-radius:
+        14px;
+
+      font-size:
+        1.2rem;
+
+      flex-shrink:
+        0;
+    }
+
+
+    .q-text {
+
+      font-size:
+        1.2rem;
+
+      font-weight:
+        550;
+
+      line-height:
+        1.45;
+
+      color:
+        #13273e;
+    }
+
+
+    .options {
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      gap:
+        12px;
+
+      padding-left:
+        8px;
+    }
+
+
+    .option {
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        14px;
+
+      background:
+        #f9fbfd;
+
+      padding:
+        12px 18px;
+
+      border-radius:
+        20px;
+
+      border:
+        1.5px solid
+        #e2e9f2;
+
+      transition:
+        all 0.15s;
+
+      cursor:
+        pointer;
+    }
+
+
+    .option:hover {
+
+      background:
+        #eaf0fa;
+
+      border-color:
+        #9bb7da;
+    }
+
+
+    .option input[type="radio"] {
+
+      accent-color:
+        #1a4a7a;
+
+      width:
+        20px;
+
+      height:
+        20px;
+
+      cursor:
+        pointer;
+
+      flex-shrink:
+        0;
+    }
+
+
+    .option label {
+
+      font-size:
+        1.05rem;
+
+      color:
+        #1e2f3f;
+
+      width:
+        100%;
+
+      cursor:
+        pointer;
+
+      line-height:
+        1.4;
+    }
+
+
+    .feedback-area {
+
+      margin-top:
+        18px;
+
+      padding:
+        8px 6px 0 48px;
+
+      min-height:
+        38px;
+
+      font-size:
+        1rem;
+    }
+
+
+    .correct-feedback {
+
+      color:
+        #0f6e3f;
+
+      font-weight:
+        500;
+    }
+
+
+    .wrong-feedback {
+
+      color:
+        #b13e3e;
+
+      font-weight:
+        500;
+    }
+
+
+    .action-bar {
+
+      display:
+        flex;
+
+      justify-content:
+        center;
+
+      gap:
+        20px;
+
+      margin:
+        30px 0 20px;
+
+      flex-wrap:
+        wrap;
+    }
+
+
+    .btn {
+
+      border:
+        none;
+
+      background:
+        white;
+
+      padding:
+        16px 36px;
+
+      border-radius:
+        60px;
+
+      font-size:
+        1.2rem;
+
+      font-weight:
+        600;
+
+      box-shadow:
+        0 8px 18px
+        rgba(
+          0,
+          20,
+          40,
+          0.08
+        );
+
+      display:
+        inline-flex;
+
+      align-items:
+        center;
+
+      gap:
+        12px;
+
+      cursor:
+        pointer;
+
+      transition:
+        0.18s;
+
+      border:
+        1px solid
+        #cddae9;
+
+      color:
+        #1e3a5f;
+    }
+
+
+    .btn-primary {
+
+      background:
+        #1a4a7a;
+
+      border:
+        1px solid
+        #1a4a7a;
+
+      color:
+        white;
+
+      box-shadow:
+        0 12px 22px
+        rgba(
+          26,
+          74,
+          122,
+          0.25
+        );
+    }
+
+
+    .btn-primary:hover {
+
+      background:
+        #0e3a60;
+
+      transform:
+        translateY(-2px);
+    }
+
+
+    .btn-outline:hover {
+
+      background:
+        #e5ecf5;
+
+      transform:
+        translateY(-1px);
+    }
+
+
+    .footer-note {
+
+      text-align:
+        center;
+
+      margin-top:
+        28px;
+
+      color:
+        #42668b;
+
+      font-size:
+        0.95rem;
+
+      display:
+        flex;
+
+      justify-content:
+        center;
+
+      align-items:
+        center;
+
+      gap:
+        18px;
+
+      flex-wrap:
+        wrap;
+    }
+
+
+    .badge-light {
+
+      background:
+        #d9e4f0;
+
+      padding:
+        6px 16px;
+
+      border-radius:
+        30px;
+    }
+
+
+    /* =====================================================
+       AI 助手
+       ===================================================== */
+
+    .ai-assistant {
+
+      position:
+        fixed;
+
+      bottom:
+        24px;
+
+      right:
+        24px;
+
+      z-index:
+        9999;
+    }
+
+
+    .ai-toggle-btn {
+
+      width:
+        60px;
+
+      height:
+        60px;
+
+      border-radius:
+        60px;
+
+      background:
+        #1a4a7a;
+
+      border:
+        none;
+
+      box-shadow:
+        0 8px 24px
+        rgba(
+          26,
+          74,
+          122,
+          0.35
+        );
+
+      color:
+        white;
+
+      font-size:
+        28px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      cursor:
+        pointer;
+
+      transition:
+        0.2s;
+    }
+
+
+    .ai-toggle-btn:hover {
+
+      background:
+        #0e3a60;
+
+      transform:
+        scale(1.05);
+    }
+
+
+    .ai-chat-panel {
+
+      position:
+        absolute;
+
+      bottom:
+        80px;
+
+      right:
+        0;
+
+      width:
+        430px;
+
+      max-width:
+        calc(
+          100vw - 40px
+        );
+
+      background:
+        white;
+
+      border-radius:
+        28px;
+
+      box-shadow:
+        0 20px 40px
+        rgba(
+          0,
+          20,
+          40,
+          0.2
+        );
+
+      overflow:
+        hidden;
+
+      display:
+        none;
+
+      flex-direction:
+        column;
+
+      border:
+        1px solid
+        #dbe4ed;
+    }
+
+
+    .ai-chat-header {
+
+      background:
+        linear-gradient(
+          135deg,
+          #1a4a7a,
+          #0e3a60
+        );
+
+      color:
+        white;
+
+      padding:
+        16px 18px;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      gap:
+        12px;
+    }
+
+
+    .ai-chat-header h3 {
+
+      font-weight:
+        600;
+
+      font-size:
+        1.15rem;
+
+      margin:
+        0;
+    }
+
+
+    .ai-chat-messages {
+
+      padding:
+        16px;
+
+      min-height:
+        260px;
+
+      max-height:
+        420px;
+
+      overflow-y:
+        auto;
+
+      display:
+        flex;
+
+      flex-direction:
+        column;
+
+      gap:
+        12px;
+
+      background:
+        #f9fbfd;
+    }
+
+
+    .message {
+
+      display:
+        flex;
+
+      gap:
+        10px;
+
+      align-items:
+        flex-start;
+
+      width:
+        100%;
+    }
+
+
+    .message.user {
+
+      flex-direction:
+        row-reverse;
+    }
+
+
+    .message-avatar {
+
+      width:
+        32px;
+
+      height:
+        32px;
+
+      border-radius:
+        32px;
+
+      background:
+        #d4e0f0;
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
+      color:
+        #1e3a5f;
+
+      font-weight:
+        bold;
+
+      flex-shrink:
+        0;
+    }
+
+
+    .message.user
+    .message-avatar {
+
+      background:
+        #1a4a7a;
+
+      color:
+        white;
+    }
+
+
+    .message-bubble {
+
+      background:
+        white;
+
+      padding:
+        12px 16px;
+
+      border-radius:
+        20px;
+
+      box-shadow:
+        0 2px 8px
+        rgba(
+          0,
+          0,
+          0,
+          0.02
+        );
+
+      border:
+        1px solid
+        #e2e9f2;
+
+      font-size:
+        0.95rem;
+
+      line-height:
+        1.6;
+
+      color:
+        #13273e;
+
+      max-width:
+        88%;
+
+      min-width:
+        0;
+
+      overflow-wrap:
+        anywhere;
+
+      overflow-x:
+        auto;
+
+      overflow-y:
+        visible;
+    }
+
+
+    .message.user
+    .message-bubble {
+
+      background:
+        #eaf0fa;
+
+      border-color:
+        #b8cee8;
+    }
+
+
+    .message-bubble p {
+
+      margin-bottom:
+        8px;
+    }
+
+
+    .message-bubble p:last-child {
+
+      margin-bottom:
+        0;
+    }
+
+
+    .message-bubble strong {
+
+      color:
+        #0b2b5e;
+
+      font-weight:
+        700;
+    }
+
+
+    .message-bubble ul,
+    .message-bubble ol {
+
+      margin-left:
+        22px;
+
+      margin-bottom:
+        8px;
+    }
+
+
+    .message-bubble li {
+
+      margin-bottom:
+        4px;
+    }
+
+
+    .message-bubble code {
+
+      background:
+        #eaf0fa;
+
+      padding:
+        2px 6px;
+
+      border-radius:
+        4px;
+
+      font-family:
+        "Courier New",
+        monospace;
+
+      font-size:
+        0.9em;
+
+      color:
+        #1a4a7a;
+    }
+
+
+    /* =====================================================
+       数学公式区域
+       ===================================================== */
+
+    .math-display {
+
+      display:
+        block;
+
+      width:
+        100%;
+
+      overflow-x:
+        auto;
+
+      overflow-y:
+        hidden;
+
+      padding:
+        8px 0;
+
+      margin:
+        6px 0;
+    }
+
+
+    .math-inline {
+
+      display:
+        inline;
+    }
+
+
+    .message-bubble
+    mjx-container {
+
+      max-width:
+        100%;
+    }
+
+
+    .message-bubble
+    mjx-container[display="true"] {
+
+      overflow-x:
+        auto;
+
+      overflow-y:
+        hidden;
+
+      margin:
+        6px 0 !important;
+    }
+
+
+    .quick-questions {
+
+      padding:
+        12px 16px 8px;
+
+      display:
+        flex;
+
+      flex-wrap:
+        wrap;
+
+      gap:
+        8px;
+
+      border-top:
+        1px solid
+        #e2e9f2;
+    }
+
+
+    .quick-btn {
+
+      background:
+        white;
+
+      border:
+        1px solid
+        #cddae9;
+
+      border-radius:
+        30px;
+
+      padding:
+        6px 14px;
+
+      font-size:
+        0.8rem;
+
+      color:
+        #1e3a5f;
+
+      cursor:
+        pointer;
+
+      font-weight:
+        500;
+    }
+
+
+    .quick-btn:hover {
+
+      background:
+        #1a4a7a;
+
+      color:
+        white;
+    }
+
+
+    .ai-input-area {
+
+      display:
+        flex;
+
+      padding:
+        12px 16px 16px;
+
+      gap:
+        8px;
+
+      border-top:
+        1px solid
+        #e2e9f2;
+    }
+
+
+    .ai-input-area input {
+
+      flex:
+        1;
+
+      min-width:
+        0;
+
+      border:
+        1.5px solid
+        #dbe4ed;
+
+      border-radius:
+        40px;
+
+      padding:
+        12px 16px;
+
+      font-size:
+        0.95rem;
+
+      outline:
+        none;
+    }
+
+
+    .ai-input-area button {
+
+      background:
+        #1a4a7a;
+
+      border:
+        none;
+
+      width:
+        48px;
+
+      height:
+        48px;
+
+      border-radius:
+        48px;
+
+      color:
+        white;
+
+      font-size:
+        18px;
+
+      cursor:
+        pointer;
+
+      flex-shrink:
+        0;
+    }
+
+
+    @media
+    (max-width: 550px) {
+
+      h1 {
+
+        font-size:
+          1.5rem;
+      }
+
+
+      .formula-badge {
+
+        font-size:
+          1rem;
+      }
+
+
+      .q-text {
+
+        font-size:
+          1rem;
+      }
+
+
+      .btn {
+
+        padding:
+          12px 20px;
+
+        font-size:
+          1rem;
+      }
+
+
+      .ai-chat-panel {
+
+        width:
+          340px;
+      }
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<div class="quiz-wrapper">
+
+
+  <div class="header-card">
+
+
+    <div class="title-section">
+
+      <h1>
+        Gabor同轴全息随堂练习
+      </h1>
+
+
+      <div class="subtitle">
+        <i class="fas fa-video"></i>
+        记录原理 · 实验光路 · 图像分析（自动抽取10题）
+      </div>
+
+    </div>
+
+
+    <div class="formula-badge">
+
+      <span>
+        Δx = Δp · k / M
+      </span>
+
+    </div>
+
+
+    <div class="key-info">
+
+      <div>
+        <i class="fas fa-lightbulb"></i>
+        632.8 nm 氦氖激光器
+      </div>
+
+
+      <div>
+        <i class="fas fa-camera"></i>
+        k = 3.45 μm
+      </div>
+
+
+      <div>
+        <i class="fas fa-expand"></i>
+        M：系统相关倍率
+      </div>
+
+      <div>
+        <i class="fas fa-wave-square"></i>
+        IH = |Ur + Uo|² · 同源光场在记录面同轴重叠
+      </div>
+
+
+    </div>
+
+
+    <div class="score-panel">
+
+      <div class="score-text">
+
+        <i class="fas fa-star"></i>
+
+        当前得分
+
+      </div>
+
+
+      <div>
+
+        <span
+          class="score-number"
+          id="scoreDisplay"
+        >
+          0
+        </span>
+
+        <span class="score-total">
+          / 100
+        </span>
+
+      </div>
+
+
+      <div
+        style="
+          margin-left:auto;
+          font-size:0.9rem;
+          opacity:0.9;
+        "
+      >
+
+        <i class="fas fa-check-circle"></i>
+
+        每题10分
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    id="questionsContainer"
+  ></div>
+
+
+  <div class="action-bar">
+
+    <button
+      class="btn btn-primary"
+      id="submitBtn"
+    >
+
+      <i class="fas fa-paper-plane"></i>
+
+      提交答案 · 查看得分
+
+    </button>
+
+
+    <button
+      class="btn btn-outline"
+      id="resetBtn"
+    >
+
+      <i class="fas fa-random"></i>
+
+      换一批题
+
+    </button>
+
+  </div>
+
+
+  <div class="footer-note">
+    <span>
+      <i class="far fa-lightbulb"></i>
+      本题库配合Gabor同轴全息三维可视化教学资源使用，重点检查记录原理、实验光路、实验操作及图像尺度换算等内容。
+    </span>
+  </div>
+</div>
+
+<!-- =====================================================
+     AI 助手
+     ===================================================== -->
+
+<div class="ai-assistant">
+
+
+  <button
+    class="ai-toggle-btn"
+    id="aiToggleBtn"
+    title="AI学习助手"
+  >
+
+    <i class="fas fa-robot"></i>
+
+  </button>
+
+
+  <div
+    class="ai-chat-panel"
+    id="aiChatPanel"
+  >
+
+
+    <div class="ai-chat-header">
+
+      <i class="fas fa-graduation-cap"></i>
+
+
+      <h3>
+        千问·Gabor同轴全息学习助手 ✨
+      </h3>
+
+
+      <small
+        id="aiServiceStatus"
+        style="
+          margin-left:auto;
+          opacity:0.9;
+          white-space:nowrap;
+        "
+      >
+
+        正在检查服务…
+
+      </small>
+
+    </div>
+
+
+    <div
+      class="ai-chat-messages"
+      id="chatMessages"
+    >
+
+      <div class="message">
+
+
+        <div class="message-avatar">
+
+          <i class="fas fa-robot"></i>
+
+        </div>
+
+
+        <div class="message-bubble">
+
+          你好！👋
+          我是由千问大模型驱动的Gabor同轴全息学习助手。<br>
+          你可以向我提问同源物光与参考光、同轴干涉记录、实验光路、操作步骤和图像尺度换算等内容。
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+    <div class="quick-questions">
+
+      <span
+        class="quick-btn"
+        data-question="Gabor同轴全息中的物光和参考光分别从哪里产生？"
+      >
+        🔬 同源光场
+      </span>
+
+      <span
+        class="quick-btn"
+        data-question="为什么Gabor同轴全息不需要独立参考光路？"
+      >
+        〽️ 同轴记录
+      </span>
+
+      <span
+        class="quick-btn"
+        data-question="背景图像与直透参考光Ur有什么区别？"
+      >
+        🖼️ 概念辨析
+      </span>
+
+      <span
+        class="quick-btn"
+        data-question="如何利用Δx=Δp×k/M完成图像尺度换算？"
+      >
+        📐 尺度换算
+      </span>
+
+    </div>
+
+    <div class="ai-input-area">
+
+
+      <input
+        type="text"
+        id="aiQuestionInput"
+        placeholder="输入你的问题…"
+      >
+
+
+      <button
+        id="aiSendBtn"
+      >
+
+        <i class="fas fa-paper-plane"></i>
+
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+
+</div>
+
+
+<script>
+
+(function () {
+
+  "use strict";
+
+
+  // =========================================================
+  // Markdown 设置
+  // =========================================================
+
+  marked.setOptions({
+
+    gfm:
+      true,
+
+    breaks:
+      true
+
+  });
+
+
+  // =========================================================
+  // 题库
+  // =========================================================
+
+  const questionBank = [
+    {
+      text: "微课中使用的激光光源是什么类型？波长约为多少？",
+      options: [
+        "A. 半导体激光器 · 532 nm",
+        "B. 氦氖激光器 · 632.8 nm",
+        "C. 氩离子激光器 · 488 nm",
+        "D. 固体激光器 · 1064 nm",
+      ],
+      answer: 1,
+      explanation: "实验采用632.8 nm氦氖激光器。"
+    },
+
+    {
+      text: "选择氦氖激光器作为本Gabor同轴全息教学装置光源的主要原因不包括？",
+      options: [
+        "A. 具有较好的相干性",
+        "B. 单色性较好",
+        "C. 输出功率极高，可直接切割材料",
+        "D. 方向性好",
+      ],
+      answer: 2,
+      explanation: "氦氖激光具有较好的单色性、相干性和方向性，适合用于观察和讲解相干记录过程；本实验并不需要用于材料切割的高功率光源。"
+    },
+
+    {
+      text: "632.8 nm波长属于可见光中的哪个区域？",
+      options: [
+        "A. 蓝光",
+        "B. 绿光",
+        "C. 红光",
+        "D. 紫外光",
+      ],
+      answer: 2,
+      explanation: "632.8 nm属于可见光中的红光波段。"
+    },
+
+    {
+      text: "光源相干长度主要限制什么？",
+      options: [
+        "A. 样品重量",
+        "B. 能够发生稳定干涉的最大光程差",
+        "C. 相机分辨率",
+        "D. 平移台行程",
+      ],
+      answer: 1,
+      explanation: "物光与参考光的光程差需要位于光源相干长度允许的范围内。"
+    },
+
+    {
+      text: "扩束准直系统中两枚凸透镜的焦距分别为？",
+      options: [
+        "A. 10 mm和20 mm",
+        "B. 15 mm和29 mm",
+        "C. 20 mm和40 mm",
+        "D. 25 mm和50 mm",
+      ],
+      answer: 1,
+      explanation: "本装置的两枚透镜焦距分别为15 mm和29 mm。"
+    },
+
+    {
+      text: "调节两枚透镜间距的主要目的是什么？",
+      options: [
+        "A. 改变激光颜色",
+        "B. 使扩束后的输出光束达到较好的准直状态",
+        "C. 产生第二束参考光",
+        "D. 改变相机像元尺寸",
+      ],
+      answer: 1,
+      explanation: "通过调节两片透镜的相对位置，使扩束后的光束达到较好的准直状态。"
+    },
+
+    {
+      text: "可变光阑在本实验中的主要作用是什么？",
+      options: [
+        "A. 限制有效光束范围，减少杂散光影响",
+        "B. 改变光束偏振方向",
+        "C. 产生独立参考光",
+        "D. 改变激光波长",
+      ],
+      answer: 0,
+      explanation: "可变光阑用于限制有效光束范围，减少杂散光对图像记录的影响。"
+    },
+
+    {
+      text: "两片理想偏振片的透振方向互相垂直时，透射光强理论上如何？",
+      options: [
+        "A. 达到最大",
+        "B. 减半",
+        "C. 接近零",
+        "D. 不受影响",
+      ],
+      answer: 2,
+      explanation: "根据理想情况下的马吕斯定律，两片正交偏振片处于消光状态，透射光强接近零。"
+    },
+
+    {
+      text: "受控平移台在图像分析练习中的主要作用是什么？",
+      options: [
+        "A. 控制样品位置变化，以采集前后图像",
+        "B. 承载激光器",
+        "C. 改变透镜焦距",
+        "D. 调节偏振方向",
+      ],
+      answer: 0,
+      explanation: "平移台用于控制样品位置变化，以采集前后图像并进行同一特征的比较。"
+    },
+
+    {
+      text: "实验相机的像元物理尺寸k是多少？",
+      options: [
+        "A. 2.50 μm",
+        "B. 3.45 μm",
+        "C. 5.00 μm",
+        "D. 6.50 μm",
+      ],
+      answer: 1,
+      explanation: "本练习采用的相机像元尺寸k为3.45 μm。"
+    },
+
+    {
+      text: "CCD/CMOS在Gabor同轴全息系统中承担什么作用？",
+      options: [
+        "A. 提供激光",
+        "B. 记录物光与参考光叠加后的强度分布",
+        "C. 改变样品位置",
+        "D. 形成独立参考臂",
+      ],
+      answer: 1,
+      explanation: "CCD/CMOS作为记录介质，记录物光与参考光在记录面叠加后的光强分布。"
+    },
+
+    {
+      text: "环境光进入相机可能导致什么问题？",
+      options: [
+        "A. 图像对比度下降或过曝",
+        "B. 自动提高分辨率",
+        "C. 自动完成相位重建",
+        "D. 改变激光波长",
+      ],
+      answer: 0,
+      explanation: "环境光和杂散光可能降低有效信号的对比度，严重时还会造成过曝。"
+    },
+
+    {
+      text: "在Gabor同轴全息中，物光与参考光来自哪里？",
+      options: [
+        "A. 两台独立激光器",
+        "B. 同一束入射相干光经样品作用后形成的两部分光场",
+        "C. 激光与环境光",
+        "D. 相机内部产生的两束光",
+      ],
+      answer: 1,
+      explanation: "未受样品明显调制的直透部分作为参考光，样品散射和衍射产生的光场构成物光；两者来自同一束入射相干光。"
+    },
+
+    {
+      text: "公式Δx=Δp×k/M中，Δp代表什么？",
+      options: [
+        "A. 样品的实际位移",
+        "B. 同一图像特征的像素位移",
+        "C. 激光波长",
+        "D. 两束光的相位差",
+      ],
+      answer: 1,
+      explanation: "Δp是在前后两幅实际采集图像中，对同一特征进行定位后得到的像素位移。"
+    },
+
+    {
+      text: "当Δp=10、k=3.45 μm、M=1时，Δx是多少？",
+      options: [
+        "A. 3.45 μm",
+        "B. 34.5 μm",
+        "C. 345 μm",
+        "D. 0.345 μm",
+      ],
+      answer: 1,
+      explanation: "由Δx=Δp×k/M可得Δx=10×3.45/1=34.5 μm。本案例采用近单位倍率近似；正式定量应用时应根据系统条件或标定结果确定M。"
+    },
+
+    {
+      text: "采集背景图像的主要用途是什么？",
+      options: [
+        "A. 代替光学参考光",
+        "B. 为后续图像比较和处理提供数据",
+        "C. 改变相机像元尺寸",
+        "D. 产生物光",
+      ],
+      answer: 1,
+      explanation: "背景图像是相机采集的数据，可用于后续图像比较和处理；它与参与干涉的直透参考光Ur含义不同。"
+    },
+
+    {
+      text: "为了减小平移台的机械回程误差，应采用哪种操作方式？",
+      options: [
+        "A. 快速来回转动",
+        "B. 尽量保持同一方向进给",
+        "C. 随机改变方向",
+        "D. 用力锁死测微头",
+      ],
+      answer: 1,
+      explanation: "在条件允许时保持同一方向进给，可减少传动间隙带来的回程影响。"
+    },
+
+    {
+      text: "记录图像过暗时，优先可以调节哪个元件？",
+      options: [
+        "A. 偏振片的相对方向",
+        "B. 平移台位置",
+        "C. 相机像元尺寸",
+        "D. 载玻片厚度",
+      ],
+      answer: 0,
+      explanation: "调节两片偏振片的相对方向可以改变进入后续光路的光强，使图像清晰且不过曝。"
+    },
+
+    {
+      text: "本实验中哪一部分光场作为直透参考光Ur？",
+      options: [
+        "A. 针段自行发出的红光",
+        "B. 未受针段明显调制的直透光场",
+        "C. 环境照明光",
+        "D. 相机反射光",
+      ],
+      answer: 1,
+      explanation: "针段只占光束截面的一小部分，未受针段明显调制的直透光场作为参考光Ur。"
+    },
+
+    {
+      text: "样品调制物光Uo主要由什么形成？",
+      options: [
+        "A. 针段受照后产生的散射和衍射光场",
+        "B. 第二台激光器",
+        "C. 背景图像",
+        "D. 相机内部照明",
+      ],
+      answer: 0,
+      explanation: "入射光受到针段作用后产生散射和衍射，由此形成的光场构成样品调制物光Uo。"
+    },
+
+    {
+      text: "环境振动为什么会影响相干记录过程？",
+      options: [
+        "A. 可能改变光路相对稳定性，使干涉强度分布发生变化",
+        "B. 会改变相机像元尺寸",
+        "C. 会把红光变成绿光",
+        "D. 会增大透镜焦距",
+      ],
+      answer: 0,
+      explanation: "相干记录依赖光路和器件的稳定性，振动可能改变相对位置或光程，使记录的强度分布发生变化。"
+    },
+
+    {
+      text: "为减小环境振动对记录过程的影响，实验操作中应采取什么措施？",
+      options: [
+        "A. 保持平台和器件稳定，避免碰撞、气流和人员走动",
+        "B. 增加环境照明",
+        "C. 反复移动相机",
+        "D. 提高激光功率",
+      ],
+      answer: 0,
+      explanation: "保持光学平台和器件稳定，并减少碰撞、气流和人员走动造成的扰动，有利于获得稳定记录。"
+    },
+
+    {
+      text: "透镜表面存在灰尘可能造成什么影响？",
+      options: [
+        "A. 引入散射、衍射和背景伪影",
+        "B. 自动提高图像清晰度",
+        "C. 改变像元尺寸",
+        "D. 不产生任何影响",
+      ],
+      answer: 0,
+      explanation: "灰尘可能引入额外的散射、衍射和背景伪影，影响图像质量。"
+    },
+
+    {
+      text: "Gabor同轴全息为什么不需要独立参考光路？",
+      options: [
+        "A. 相机可以自动生成参考光",
+        "B. 物光和参考光由同一束入射光形成并沿共同光轴传播",
+        "C. 样品不产生衍射",
+        "D. 系统不需要发生干涉",
+      ],
+      answer: 1,
+      explanation: "物光和直透参考光来自同一束入射相干光，并沿共同光轴向记录面传播，因此不设置独立参考臂。"
+    },
+
+    {
+      text: "光学非接触检测相对于接触式测量的一项典型特点是什么？",
+      options: [
+        "A. 测量过程中不需要测头直接接触样品",
+        "B. 完全不受环境影响",
+        "C. 所有装置都无需标定",
+        "D. 一定具有更高精度",
+      ],
+      answer: 0,
+      explanation: "相关光学方法可以在不使用测头直接接触样品的情况下获取信息；具体性能仍取决于系统和实验条件。"
+    },
+
+    {
+      text: "传统光学全息与数字全息的重要区别之一是？",
+      options: [
+        "A. 数字全息不需要相干光",
+        "B. 数字全息使用CCD或CMOS记录光强分布",
+        "C. 数字全息不需要发生干涉",
+        "D. 传统全息不能使用感光材料",
+      ],
+      answer: 1,
+      explanation: "数字全息使用CCD或CMOS等光电传感器代替传统感光记录介质，并可对记录数据进行数字处理。"
+    },
+
+    {
+      text: "MEMS的中文名称是什么？",
+      options: [
+        "A. 微机电系统",
+        "B. 医疗应急管理系统",
+        "C. 多媒体教育系统",
+        "D. 磁共振成像系统",
+      ],
+      answer: 0,
+      explanation: "MEMS是Micro-Electro-Mechanical Systems的缩写，中文通常译为微机电系统。"
+    },
+
+    {
+      text: "相关数字全息技术在生物医学领域可用于哪类研究？",
+      options: [
+        "A. 透明或弱相位生物样品的成像研究",
+        "B. 代替所有临床影像设备",
+        "C. 直接测量人体血压",
+        "D. 改变样品化学成分",
+      ],
+      answer: 0,
+      explanation: "数字全息显微等相关技术可用于透明或弱相位生物样品的成像研究；这是技术应用背景，不表示当前教学装置已经完成活细胞三维观测。"
+    },
+
+    {
+      text: "CCD/CMOS记录面的光强可表示为哪一式？",
+      options: [
+        "A. IH=|Ur+Uo|²",
+        "B. IH=Ur-Uo",
+        "C. IH=Δp×k",
+        "D. IH=f2/f1",
+      ],
+      answer: 0,
+      explanation: "相机记录光强；物光与参考光的相干叠加使相对相位的影响通过干涉项体现在强度分布中。"
+    },
+
+    {
+      text: "下列关于背景图像与参考光的说法正确的是？",
+      options: [
+        "A. 两者是同一个概念",
+        "B. 背景图像是采集数据，参考光是参与干涉的光场",
+        "C. 背景图像就是物光",
+        "D. 参考光只存在于计算机中",
+      ],
+      answer: 1,
+      explanation: "背景图像用于图像比较和处理；直透参考光Ur是在全息记录过程中参与干涉的光场。"
+    },
+
+    {
+      text: "动画中的针段红色轮廓和传播波纹表示什么？",
+      options: [
+        "A. 针段在自行发光",
+        "B. 样品受照后散射和衍射作用的教学示意",
+        "C. 第二光源发出的光",
+        "D. 数值重建后的实验结果",
+      ],
+      answer: 1,
+      explanation: "红色轮廓和波纹用于可视化样品受照后的散射与衍射作用，不表示针段自行发光，也不是数值重建结果。"
+    },
+
+    {
+      text: "发生稳定干涉的重要条件之一是什么？",
+      options: [
+        "A. 两部分光场保持稳定的相位关系",
+        "B. 两束光必须颜色不同",
+        "C. 振幅必须完全相等",
+        "D. 必须使用两台激光器",
+      ],
+      answer: 0,
+      explanation: "能够形成稳定干涉的光场应具有相同频率、相容的偏振方向并保持稳定的相位关系。"
+    },
+
+    {
+      text: "关于本教学资源的内容，下列说法正确的是？",
+      options: [
+        "A. 已完成三维形貌数值重建",
+        "B. 已通过案例数据验证全息测量精度",
+        "C. 重点讲解Gabor同轴全息记录原理，图像分析作为辅助练习",
+        "D. 采用独立参考臂进行记录",
+      ],
+      answer: 2,
+      explanation: "本资源重点帮助初学者理解Gabor同轴全息记录原理，并通过实际图像开展特征比较和尺度换算练习，不将案例结果作为数值重建或测量精度验证。"
+    },
+
+  ];
+
+
+  let currentQuestions =
+    [];
+
+
+  let currentScore =
+    0;
+
+
+  const container =
+    document.getElementById(
+      "questionsContainer"
+    );
+
+
+  const scoreDisplay =
+    document.getElementById(
+      "scoreDisplay"
+    );
+
+
+  const questionCardRefs =
+    [];
+
+
+  function getRandomQuestions(
+    bank,
+    count
+  ) {
+
+    const shuffled =
+      JSON.parse(
+        JSON.stringify(
+          bank
+        )
+      );
+
+
+    for (
+      let i =
+        shuffled.length - 1;
+
+      i > 0;
+
+      i--
+    ) {
+
+      const j =
+        Math.floor(
+          Math.random()
+          *
+          (
+            i + 1
+          )
+        );
+
+
+      [
+        shuffled[i],
+        shuffled[j]
+      ]
+      =
+      [
+        shuffled[j],
+        shuffled[i]
+      ];
+
+    }
+
+
+    return shuffled.slice(
+      0,
+      count
+    );
+
+  }
+
+
+  function initQuiz() {
+
+    const extractCount =
+      Math.min(
+        10,
+        questionBank.length
+      );
+
+
+    currentQuestions =
+      getRandomQuestions(
+        questionBank,
+        extractCount
+      );
+
+
+    currentScore =
+      0;
+
+
+    scoreDisplay.textContent =
+      "0";
+
+
+    questionCardRefs.length =
+      0;
+
+
+    let html =
+      "";
+
+
+    currentQuestions.forEach(
+      (
+        q,
+        index
+      ) => {
+
+        html += `
+
+          <div
+            class="question-card"
+            id="qCard${index}"
+          >
+
+
+            <div
+              class="question-header"
+            >
+
+
+              <div
+                class="q-num"
+              >
+
+                ${index + 1}
+
+              </div>
+
+
+              <div
+                class="q-text"
+              >
+
+                ${q.text}
+
+              </div>
+
+
+            </div>
+
+
+            <div
+              class="options"
+            >
+
+
+              ${
+                q.options.map(
+                  (
+                    opt,
+                    optIndex
+                  ) => `
+
+                    <div
+                      class="option"
+                      data-q="${index}"
+                      data-opt="${optIndex}"
+                    >
+
+
+                      <input
+                        type="radio"
+                        name="q${index}"
+                        id="q${index}opt${optIndex}"
+                        value="${optIndex}"
+                      >
+
+
+                      <label
+                        for="q${index}opt${optIndex}"
+                      >
+
+                        ${opt}
+
+                      </label>
+
+
+                    </div>
+
+                  `
+                ).join("")
+              }
+
+
+            </div>
+
+
+            <div
+              class="feedback-area"
+              id="feedback${index}"
+            ></div>
+
+
+          </div>
+
+        `;
+
+      }
+    );
+
+
+    container.innerHTML =
+      html;
+
+
+    document
+      .querySelectorAll(
+        ".option"
+      )
+      .forEach(
+        optDiv => {
+
+          optDiv.addEventListener(
+            "click",
+            function () {
+
+              const radio =
+                this.querySelector(
+                  'input[type="radio"]'
+                );
+
+
+              if (
+                radio
+              ) {
+
+                radio.checked =
+                  true;
+
+
+                radio.dispatchEvent(
+                  new Event(
+                    "change",
+                    {
+                      bubbles:
+                        true
+                    }
+                  )
+                );
+
+              }
+
+            }
+          );
+
+        }
+      );
+
+
+    for (
+      let i = 0;
+
+      i <
+      currentQuestions.length;
+
+      i++
+    ) {
+
+      questionCardRefs[
+        i
+      ] = {
+
+        feedbackEl:
+          document.getElementById(
+            `feedback${i}`
+          ),
+
+        cardEl:
+          document.getElementById(
+            `qCard${i}`
+          )
+
+      };
+
+    }
+
+  }
+
+
+  function evaluateAndDisplay() {
+
+    let totalScore =
+      0;
+
+
+    let answeredCount =
+      0;
+
+
+    for (
+      let i = 0;
+
+      i <
+      currentQuestions.length;
+
+      i++
+    ) {
+
+      const qData =
+        currentQuestions[
+          i
+        ];
+
+
+      const selected =
+        document.querySelector(
+          `input[name="q${i}"]:checked`
+        );
+
+
+      const feedbackEl =
+        questionCardRefs[
+          i
+        ].feedbackEl;
+
+
+      const cardEl =
+        questionCardRefs[
+          i
+        ].cardEl;
+
+
+      if (
+        !selected
+      ) {
+
+        feedbackEl.innerHTML =
+          `
+            <span
+              style="color:#b85b14;"
+            >
+              未作答，本题不计分
+            </span>
+          `;
+
+
+        cardEl.style.border =
+          "2px solid #f3b37f";
+
+
+        continue;
+
+      }
+
+
+      answeredCount++;
+
+
+      const selectedValue =
+        parseInt(
+          selected.value
+        );
+
+
+      const isCorrect =
+        selectedValue
+        ===
+        qData.answer;
+
+
+      if (
+        isCorrect
+      ) {
+
+        totalScore +=
+          10;
+
+      }
+
+
+      feedbackEl.innerHTML =
+        isCorrect
+        ?
+        `
+          <span
+            class="correct-feedback"
+          >
+            ✓ 回答正确！
+          </span>
+
+          ${qData.explanation}
+        `
+        :
+        `
+          <span
+            class="wrong-feedback"
+          >
+            ✗ 回答错误。
+          </span>
+
+          正确答案：
+          ${qData.options[qData.answer]}
+
+          <br>
+
+          ${qData.explanation}
+        `;
+
+
+      cardEl.style.border =
+        isCorrect
+        ?
+        "2px solid #9fc5e8"
+        :
+        "2px solid #e8b2b2";
+
+    }
+
+
+    currentScore =
+      totalScore;
+
+
+    scoreDisplay.textContent =
+      currentScore;
+
+
+    if (
+      answeredCount
+      ===
+      0
+    ) {
+
+      alert(
+        "还没有作答任何题目。"
+      );
+
+    }
+
+  }
+
+
+  // =========================================================
+  // AI
+  // =========================================================
+
+  const toggleBtn =
+    document.getElementById(
+      "aiToggleBtn"
+    );
+
+
+  const panel =
+    document.getElementById(
+      "aiChatPanel"
+    );
+
+
+  const chatMessages =
+    document.getElementById(
+      "chatMessages"
+    );
+
+
+  const questionInput =
+    document.getElementById(
+      "aiQuestionInput"
+    );
+
+
+  const sendBtn =
+    document.getElementById(
+      "aiSendBtn"
+    );
+
+
+  const serviceStatus =
+    document.getElementById(
+      "aiServiceStatus"
+    );
+
+
+  function generateId() {
+
+    return (
+      "msg_"
+      +
+      Math.random()
+        .toString(36)
+        .substring(
+          2,
+          9
+        )
+    );
+
+  }
+
+
+  // =========================================================
+  // 1. 标准化 LaTeX 分隔符
+  //
+  // 注意：
+  // 不对 (x,y) 等普通圆括号做任何处理。
+  // =========================================================
+
+  function normalizeLatex(
+    text
+  ) {
+
+    if (
+      !text
+    ) {
+
+      return "";
+
+    }
+
+
+    let result =
+      String(
+        text
+      ).replace(
+        /\r\n/g,
+        "\n"
+      );
+
+
+    // \[...\] → $$...$$
+    result =
+      result.replace(
+
+        /\\\[([\s\S]*?)\\\]/g,
+
+        (
+          match,
+          content
+        ) => {
+
+          return (
+            "\n$$\n"
+            +
+            content.trim()
+            +
+            "\n$$\n"
+          );
+
+        }
+
+      );
+
+
+    // \(...\) → $...$
+    result =
+      result.replace(
+
+        /\\\(([\s\S]*?)\\\)/g,
+
+        (
+          match,
+          content
+        ) => {
+
+          return (
+            "$"
+            +
+            content.trim()
+            +
+            "$"
+          );
+
+        }
+
+      );
+
+
+    return result;
+
+  }
+
+
+  // =========================================================
+  // HTML 转义
+  // =========================================================
+
+  function escapeHtml(
+    value
+  ) {
+
+    return String(
+      value
+    )
+
+      .replace(
+        /&/g,
+        "&amp;"
+      )
+
+      .replace(
+        /</g,
+        "&lt;"
+      )
+
+      .replace(
+        />/g,
+        "&gt;"
+      );
+
+  }
+
+
+  // =========================================================
+  // 2. Markdown解析之前先把数学公式藏起来
+  //
+  // 这样 marked.js 无法破坏 LaTeX。
+  // =========================================================
+
+  function protectMath(
+    text
+  ) {
+
+    const formulas =
+      [];
+
+
+    let protectedText =
+      text;
+
+
+    // -------------------------------------------------------
+    // 先保护块级 $$...$$
+    // -------------------------------------------------------
+
+    protectedText =
+      protectedText.replace(
+
+        /\$\$([\s\S]*?)\$\$/g,
+
+        (
+          match,
+          content
+        ) => {
+
+          const token =
+            `MATHBLOCKTOKEN${formulas.length}XYZ`;
+
+
+          formulas.push({
+
+            token:
+              token,
+
+            type:
+              "display",
+
+            content:
+              content.trim()
+
+          });
+
+
+          return (
+            "\n"
+            +
+            token
+            +
+            "\n"
+          );
+
+        }
+
+      );
+
+
+    // -------------------------------------------------------
+    // 再保护行内 $...$
+    //
+    // 不处理跨行，也不处理不成对的 $。
+    // -------------------------------------------------------
+
+    protectedText =
+      protectedText.replace(
+
+        /\$([^$\n]+?)\$/g,
+
+        (
+          match,
+          content
+        ) => {
+
+          const token =
+            `MATHINLINETOKEN${formulas.length}XYZ`;
+
+
+          formulas.push({
+
+            token:
+              token,
+
+            type:
+              "inline",
+
+            content:
+              content.trim()
+
+          });
+
+
+          return token;
+
+        }
+
+      );
+
+
+    return {
+
+      text:
+        protectedText,
+
+      formulas:
+        formulas
+
+    };
+
+  }
+
+
+  // =========================================================
+  // 3. Markdown解析完成后恢复公式
+  //
+  // 注意：
+  // 最终统一转换为：
+  //
+  // \( ... \)
+  //
+  // \[ ... \]
+  //
+  // 再交给 MathJax。
+  // =========================================================
+
+  function restoreMath(
+    html,
+    formulas
+  ) {
+
+    let result =
+      html;
+
+
+    formulas.forEach(
+      formula => {
+
+        const safe =
+          escapeHtml(
+            formula.content
+          );
+
+
+        if (
+          formula.type
+          ===
+          "display"
+        ) {
+
+          const replacement =
+            `
+              <span
+                class="math-display"
+              >
+                \\[
+                ${safe}
+                \\]
+              </span>
+            `;
+
+
+          // marked有时会把块公式token放入<p>
+          result =
+            result
+              .split(
+                `<p>${formula.token}</p>`
+              )
+              .join(
+                replacement
+              );
+
+
+          result =
+            result
+              .split(
+                formula.token
+              )
+              .join(
+                replacement
+              );
+
+        }
+
+        else {
+
+          const replacement =
+            `
+              <span
+                class="math-inline"
+              >
+                \\(
+                ${safe}
+                \\)
+              </span>
+            `;
+
+
+          result =
+            result
+              .split(
+                formula.token
+              )
+              .join(
+                replacement
+              );
+
+        }
+
+      }
+    );
+
+
+    return result;
+
+  }
+
+
+  // =========================================================
+  // 4. 生成最终 HTML
+  // =========================================================
+
+  function renderAssistantContent(
+    rawText
+  ) {
+
+    // 第一步
+    const normalized =
+      normalizeLatex(
+        rawText
+      );
+
+
+    // 第二步
+    const protectedMath =
+      protectMath(
+        normalized
+      );
+
+
+    // 第三步
+    let html =
+      marked.parse(
+        protectedMath.text
+      );
+
+
+    // 第四步
+    html =
+      restoreMath(
+        html,
+        protectedMath.formulas
+      );
+
+
+    return html;
+
+  }
+
+
+  // =========================================================
+  // 5. MathJax渲染
+  // =========================================================
+
+  async function typesetMath(
+    element,
+    retry = 0
+  ) {
+
+    if (
+
+      window.MathJax
+
+      &&
+
+      typeof
+      window.MathJax.typesetPromise
+      ===
+      "function"
+
+    ) {
+
+      try {
+
+        if (
+          typeof
+          window.MathJax.typesetClear
+          ===
+          "function"
+        ) {
+
+          window.MathJax.typesetClear(
+            [
+              element
+            ]
+          );
+
+        }
+
+
+        await window.MathJax.typesetPromise(
+          [
+            element
+          ]
+        );
+
+
+        chatMessages.scrollTop =
+          chatMessages.scrollHeight;
+
+      }
+
+      catch (
+        error
+      ) {
+
+        console.error(
+          "MathJax渲染错误：",
+          error
+        );
+
+      }
+
+
+      return;
+
+    }
+
+
+    if (
+      retry
+      <
+      50
+    ) {
+
+      setTimeout(
+        () => {
+
+          typesetMath(
+            element,
+            retry + 1
+          );
+
+        },
+        100
+      );
+
+    }
+
+    else {
+
+      console.error(
+        "MathJax加载失败。"
+      );
+
+    }
+
+  }
+
+
+  // =========================================================
+  // 添加消息
+  // =========================================================
+
+  function addMessage(
+    text,
+    isUser = false,
+    msgId = null
+  ) {
+
+    const msgDiv =
+      document.createElement(
+        "div"
+      );
+
+
+    msgDiv.className =
+      `message ${
+        isUser
+        ?
+        "user"
+        :
+        ""
+      }`;
+
+
+    if (
+      msgId
+    ) {
+
+      msgDiv.id =
+        msgId;
+
+    }
+
+
+    const avatar =
+      document.createElement(
+        "div"
+      );
+
+
+    avatar.className =
+      "message-avatar";
+
+
+    avatar.innerHTML =
+      isUser
+      ?
+      '<i class="fas fa-user"></i>'
+      :
+      '<i class="fas fa-robot"></i>';
+
+
+    const bubble =
+      document.createElement(
+        "div"
+      );
+
+
+    bubble.className =
+      "message-bubble";
+
+
+    if (
+      isUser
+    ) {
+
+      bubble.textContent =
+        text;
+
+    }
+
+    else {
+
+      bubble.innerHTML =
+        renderAssistantContent(
+          text
+        );
+
+    }
+
+
+    msgDiv.appendChild(
+      avatar
+    );
+
+
+    msgDiv.appendChild(
+      bubble
+    );
+
+
+    chatMessages.appendChild(
+      msgDiv
+    );
+
+
+    if (
+      !isUser
+    ) {
+
+      typesetMath(
+        bubble
+      );
+
+    }
+
+
+    chatMessages.scrollTop =
+      chatMessages.scrollHeight;
+
+  }
+
+
+  // =========================================================
+  // API调用
+  // =========================================================
+
+  async function generateAnswer(
+    question,
+    loadingId
+  ) {
+
+    try {
+
+      const response =
+        await fetch(
+
+          "/api/chat",
+
+          {
+
+            method:
+              "POST",
+
+            headers: {
+
+              "Content-Type":
+                "application/json"
+
+            },
+
+            cache:
+              "no-store",
+
+            body:
+              JSON.stringify({
+
+                question:
+                  question
+
+              })
+
+          }
+
+        );
+
+
+      const data =
+        await response.json();
+
+
+      const loadingBubble =
+        document.getElementById(
+          loadingId
+        );
+
+
+      if (
+        loadingBubble
+      ) {
+
+        loadingBubble.remove();
+
+      }
+
+
+      if (
+        !response.ok
+      ) {
+
+        return (
+          "❌ 抱歉："
+          +
+          (
+            data.error
+            ||
+            "请求服务器失败"
+          )
+        );
+
+      }
+
+
+      if (
+        data.error
+      ) {
+
+        return (
+          "❌ 抱歉："
+          +
+          data.error
+        );
+
+      }
+
+
+      return (
+        data.answer
+        ||
+        "未收到有效回答。"
+      );
+
+    }
+
+    catch (
+      error
+    ) {
+
+      console.error(
+        "Fetch Error:",
+        error
+      );
+
+
+      const loadingBubble =
+        document.getElementById(
+          loadingId
+        );
+
+
+      if (
+        loadingBubble
+      ) {
+
+        loadingBubble.remove();
+
+      }
+
+
+      return (
+        "🔌 无法连接智能助教服务。"
+        +
+        "请确认 app.py 已启动，并使用程序自动打开的本地网页。"
+      );
+
+    }
+
+  }
+
+
+  async function checkAiService() {
+
+    try {
+
+      const response =
+        await fetch(
+
+          "/api/health",
+
+          {
+
+            cache:
+              "no-store"
+
+          }
+
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (
+        response.ok
+        &&
+        data.ok
+      ) {
+
+        serviceStatus.textContent =
+          `● 已连接 · ${data.model}`;
+
+
+        serviceStatus.style.color =
+          "#d9ffd9";
+
+      }
+
+      else {
+
+        serviceStatus.textContent =
+          "● API Key 未配置";
+
+
+        serviceStatus.style.color =
+          "#ffe2a8";
+
+      }
+
+    }
+
+    catch (
+      error
+    ) {
+
+      serviceStatus.textContent =
+        "● 后端未连接";
+
+
+      serviceStatus.style.color =
+        "#ffd0d0";
+
+    }
+
+  }
+
+
+  async function handleUserQuestion(
+    questionText
+  ) {
+
+    if (
+      !questionText.trim()
+    ) {
+
+      return;
+
+    }
+
+
+    addMessage(
+      questionText,
+      true
+    );
+
+
+    questionInput.value =
+      "";
+
+
+    const loadingId =
+      generateId();
+
+
+    addMessage(
+
+      "✨ 千问正在思考中……",
+
+      false,
+
+      loadingId
+
+    );
+
+
+    const answer =
+      await generateAnswer(
+
+        questionText,
+
+        loadingId
+
+      );
+
+
+    addMessage(
+      answer,
+      false
+    );
+
+  }
+
+
+  // =========================================================
+  // 初始化
+  // =========================================================
+
+  initQuiz();
+
+  checkAiService();
+
+
+  document
+    .getElementById(
+      "submitBtn"
+    )
+    .addEventListener(
+      "click",
+      evaluateAndDisplay
+    );
+
+
+  document
+    .getElementById(
+      "resetBtn"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        initQuiz();
+
+      }
+    );
+
+
+  toggleBtn.addEventListener(
+    "click",
+    () => {
+
+      panel.style.display =
+        panel.style.display
+        ===
+        "flex"
+        ?
+        "none"
+        :
+        "flex";
+
+    }
+  );
+
+
+  sendBtn.addEventListener(
+    "click",
+    () => {
+
+      handleUserQuestion(
+        questionInput.value
+      );
+
+    }
+  );
+
+
+  questionInput.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key
+        ===
+        "Enter"
+      ) {
+
+        event.preventDefault();
+
+
+        handleUserQuestion(
+          questionInput.value
+        );
+
+      }
+
+    }
+  );
+
+
+  document
+    .querySelectorAll(
+      ".quick-btn"
+    )
+    .forEach(
+      btn => {
+
+        btn.addEventListener(
+          "click",
+          () => {
+
+            handleUserQuestion(
+              btn.dataset.question
+            );
+
+          }
+        );
+
+      }
+    );
+
+})();
+
+</script>
+
+
+</body>
+
+</html>
